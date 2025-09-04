@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -16,7 +17,8 @@ import 'shared/providers/auth_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
+  await dotenv.load(fileName: ".env");
+
   // Initialize Firebase
   await Firebase.initializeApp(
     options: const FirebaseOptions(
@@ -28,13 +30,13 @@ void main() async {
         appId: "1:148615898630:web:1e50e48826290f5670c587",
         measurementId: "G-J6GL5Q44C9"),
   );
-  
+
   // Initialize Hive for local storage
   await Hive.initFlutter();
-  
+
   // Initialize Mobile Ads SDK
   await AdService.initialize();
-  
+
   runApp(const ProviderScope(child: PsychologyAIApp()));
 }
 
@@ -65,7 +67,7 @@ class AuthWrapper extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final authState = ref.watch(authStateProvider);
-    
+
     return authState.when(
       data: (user) {
         if (user != null) {

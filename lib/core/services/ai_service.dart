@@ -4,7 +4,7 @@ import '../constants/app_constants.dart';
 
 class AIService {
   static const String _baseUrl = 'https://api.together.xyz/v1/chat/completions';
-  
+
   // Dr. Sarah's personality and therapeutic approach
   static const String _systemPrompt = '''
 You are Dr. Sarah, a compassionate and experienced AI psychologist specializing in Cognitive Behavioral Therapy (CBT) and evidence-based therapeutic approaches. Your role is to provide supportive, professional, and helpful psychological guidance.
@@ -29,7 +29,8 @@ Guidelines:
 Remember: You are a supportive AI assistant, not a replacement for professional therapy. Always encourage users to seek professional help for serious mental health concerns.
 ''';
 
-  static Future<String> sendMessage(String message, List<Map<String, String>> conversationHistory) async {
+  static Future<String> sendMessage(
+      String message, List<Map<String, String>> conversationHistory) async {
     try {
       // Prepare conversation messages
       List<Map<String, String>> messages = [
@@ -54,14 +55,17 @@ Remember: You are a supportive AI assistant, not a replacement for professional 
       );
 
       print('Together.ai API response status: ${response.statusCode}');
-      
+
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
-        final aiResponse = data['choices'][0]['message']['content'].toString().trim();
-        print('Together.ai API response received: ${aiResponse.substring(0, 50)}...');
+        final aiResponse =
+            data['choices'][0]['message']['content'].toString().trim();
+        print(
+            'Together.ai API response received: ${aiResponse.substring(0, 50)}...');
         return aiResponse;
       } else {
-        print('Together.ai API Error: ${response.statusCode} - ${response.body}');
+        print(
+            'Together.ai API Error: ${response.statusCode} - ${response.body}');
         throw Exception('Failed to get response from Together.ai');
       }
     } catch (e) {
@@ -69,8 +73,6 @@ Remember: You are a supportive AI assistant, not a replacement for professional 
       throw Exception('Failed to process message');
     }
   }
-
- 
 
   static List<String> getSuggestedTopics() {
     return [
