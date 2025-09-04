@@ -22,7 +22,7 @@ void main() async {
   // Initialize Firebase
   await Firebase.initializeApp(
     options: const FirebaseOptions(
-        apiKey: "AIzaSyC-p2AkAPQAPB1ITzeKolE9H6siwkUnWo4",
+        apiKey: "",
         authDomain: "protfolio-daeb8.firebaseapp.com",
         projectId: "protfolio-daeb8",
         storageBucket: "protfolio-daeb8.appspot.com",
